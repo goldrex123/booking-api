@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 public class Reservation extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     private Long id;
 
     @Enumerated(EnumType.STRING)

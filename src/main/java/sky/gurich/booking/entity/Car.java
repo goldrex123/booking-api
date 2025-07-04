@@ -2,8 +2,10 @@ package sky.gurich.booking.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sky.gurich.booking.dto.CarCreateRequest;
 
 @Entity
 @Getter
@@ -15,10 +17,20 @@ public class Car extends BaseTimeEntity{
 
     private String carNumber;
 
-    private int capacity;
+    private Integer capacity;
 
     @Enumerated(EnumType.STRING)
     private CarType carType;
 
     private String description;
+
+    @Builder
+    public Car(String carNumber, Integer capacity, CarType carType, String description) {
+        this.carNumber = carNumber;
+        this.capacity = capacity;
+        this.carType = carType;
+        this.description = description;
+    }
+
+
 }

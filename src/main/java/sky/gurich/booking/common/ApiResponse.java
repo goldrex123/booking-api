@@ -1,5 +1,8 @@
 package sky.gurich.booking.common;
 
+import lombok.Getter;
+
+@Getter
 public class ApiResponse<T> {
 
     private ApiResponseCode code;

@@ -6,5 +6,7 @@ public enum CarType {
 
     STARIA,
 
-    CARNIVAL;
+    CARNIVAL,
+
+    ETC;
 }
