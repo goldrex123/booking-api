@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sky.gurich.booking.common.ApiResponse;
 import sky.gurich.booking.dto.CarCreateRequest;
 import sky.gurich.booking.dto.CarResponse;
+import sky.gurich.booking.dto.CarUpdateRequest;
 import sky.gurich.booking.service.CarService;
 
 @RestController
@@ -18,14 +19,24 @@ public class CarController {
 
     @GetMapping
     public ResponseEntity<?> getCar() {
-
-        return null;
+        return ResponseEntity.ok(ApiResponse.success(carService.findCar()));
     }
 
     @PostMapping
-    public ResponseEntity<?> postCar(@RequestBody @Validated CarCreateRequest carCreateRequest) {
+    public ResponseEntity<?> insertCar(@RequestBody @Validated CarCreateRequest carCreateRequest) {
         CarResponse carResponse = carService.insertCar(carCreateRequest);
-        ApiResponse<CarResponse> success = ApiResponse.success(carResponse);
-        return ResponseEntity.ok(success);
+        return ResponseEntity.ok(ApiResponse.success(carResponse));
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateCar(@RequestBody @Validated CarUpdateRequest carUpdateRequest) {
+        CarResponse carResponse = carService.updateCar(carUpdateRequest);
+        return ResponseEntity.ok(ApiResponse.success(carResponse));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCar(@PathVariable Long id) {
+        carService.deleteCar(id);
+        return ResponseEntity.ok(ApiResponse.success("차량이 성공적으로 삭제되었습니다."));
     }
 }

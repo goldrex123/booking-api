@@ -1,7 +1,7 @@
 package sky.gurich.booking.handler;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,6 +74,14 @@ public class BizExceptionHandler {
 
         ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.REQUEST_METHOD_NOT_SUPPORTED, ex.getMessage());
         return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ApiResponse> handleEntityNotFoundException(EntityNotFoundException ex) {
+        log.error("handle EntityNotFoundException - {}", ex.getMessage());
+
+        ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.ENTITY_NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(404).body(response);
     }
 
     @ExceptionHandler(Exception.class)

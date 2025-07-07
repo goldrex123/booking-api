@@ -32,5 +32,10 @@ public class Car extends BaseTimeEntity{
         this.description = description;
     }
 
-
+    public void update(String carNumber, Integer capacity, CarType carType, String description) {
+        this.capacity = capacity;
+        this.carNumber = carNumber;
+        this.carType = carType;
+        this.description = description;
+    }
 }
