@@ -12,6 +12,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import sky.gurich.booking.common.ApiResponse;
 import sky.gurich.booking.common.ApiResponseCode;
 
@@ -82,6 +83,19 @@ public class BizExceptionHandler {
 
         ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.ENTITY_NOT_FOUND, ex.getMessage());
         return ResponseEntity.status(404).body(response);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ApiResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        log.error("handle MethodArgumentTypeMismatchException - {}", ex.getMessage());
+
+        String name = ex.getName();
+        String requiredType = ex.getRequiredType() != null ? ex.getRequiredType().getSimpleName() : "알 수 없음";
+
+        String message = String.format("%s 파라미터는 %s 타입이어야 합니다.", name, requiredType);
+
+        ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.TYPE_MISMATCH, message);
+        return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(Exception.class)
