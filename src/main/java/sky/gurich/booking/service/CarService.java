@@ -28,6 +28,11 @@ public class CarService {
                 .toList();
     }
 
+    public CarResponse findCarById(Long id) {
+        Car car = getCarOrThrow(id);
+
+        return CarResponse.toDto(car);
+    }
 
     @Transactional
     public CarResponse insertCar(CarCreateRequest carCreateRequest) {
@@ -55,6 +60,7 @@ public class CarService {
 
         carRepository.delete(car);
     }
+
 
     private Car getCarOrThrow(Long id) {
         return carRepository.findById(id)

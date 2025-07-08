@@ -22,6 +22,11 @@ public class CarController {
         return ResponseEntity.ok(ApiResponse.success(carService.findCar()));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCarById(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success(carService.findCarById(id)));
+    }
+
     @PostMapping
     public ResponseEntity<?> insertCar(@RequestBody @Validated CarCreateRequest carCreateRequest) {
         CarResponse carResponse = carService.insertCar(carCreateRequest);
