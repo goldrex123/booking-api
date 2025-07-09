@@ -2,6 +2,7 @@ package sky.gurich.booking.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,4 +33,14 @@ public class Reservation extends BaseTimeEntity {
 
     private LocalDateTime reservationStartAt;
     private LocalDateTime reservationEndAt;
+
+    @Builder
+    public Reservation(ReservationType reservationType, User user, Car car, Room room, LocalDateTime reservationStartAt, LocalDateTime reservationEndAt) {
+        this.reservationType = reservationType;
+        this.user = user;
+        this.car = car;
+        this.room = room;
+        this.reservationStartAt = reservationStartAt;
+        this.reservationEndAt = reservationEndAt;
+    }
 }
