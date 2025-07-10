@@ -21,7 +21,7 @@ public class Reservation extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
@@ -35,9 +35,9 @@ public class Reservation extends BaseTimeEntity {
     private LocalDateTime reservationEndAt;
 
     @Builder
-    public Reservation(ReservationType reservationType, User user, Car car, Room room, LocalDateTime reservationStartAt, LocalDateTime reservationEndAt) {
+    public Reservation(ReservationType reservationType, Member member, Car car, Room room, LocalDateTime reservationStartAt, LocalDateTime reservationEndAt) {
         this.reservationType = reservationType;
-        this.user = user;
+        this.member = member;
         this.car = car;
         this.room = room;
         this.reservationStartAt = reservationStartAt;

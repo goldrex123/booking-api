@@ -23,10 +23,10 @@ public class ReservationCreateRequest {
     @NotNull(message = "예약 종료 시간은 필수 값입니다.")
     private LocalDateTime reservationEndAt;
 
-    public Reservation toEntity(User user, Car car, Room room) {
+    public Reservation toEntity(Member member, Car car, Room room) {
         return Reservation.builder()
                 .reservationType(this.reservationType)
-                .user(user)
+                .member(member)
                 .car(car)
                 .room(room)
                 .reservationStartAt(this.reservationStartAt)

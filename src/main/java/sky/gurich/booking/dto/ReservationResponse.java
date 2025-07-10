@@ -35,8 +35,8 @@ public class ReservationResponse {
     public static ReservationResponse toDto(Reservation reservation) {
         return ReservationResponse.builder()
                 .id(reservation.getId())
-                .userId(reservation.getUser().getId())
-                .username(reservation.getUser().getUsername())
+                .userId(reservation.getMember().getId())
+                .username(reservation.getMember().getUsername())
                 .carResponse(CarResponse.toDto(reservation.getCar()))
                 .roomResponse(RoomResponse.toDto(reservation.getRoom()))
                 .reservationStartAt(reservation.getReservationStartAt())
