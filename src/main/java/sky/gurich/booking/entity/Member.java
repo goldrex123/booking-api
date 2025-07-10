@@ -2,6 +2,7 @@ package sky.gurich.booking.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,9 +16,16 @@ public class Member extends BaseTimeEntity{
     @Column(unique = true)
     private String username;
     private String password;
-    @Column(unique = true)
     private String nickname;
     private ChurchGroup churchGroup;
     private MemberRole memberRole;
 
+    @Builder
+    public Member(String username, String password, String nickname, ChurchGroup churchGroup, MemberRole memberRole) {
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.churchGroup = churchGroup;
+        this.memberRole = memberRole;
+    }
 }

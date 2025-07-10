@@ -3,6 +3,7 @@ package sky.gurich.booking.handler;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -95,6 +96,22 @@ public class BizExceptionHandler {
         String message = String.format("%s 파라미터는 %s 타입이어야 합니다.", name, requiredType);
 
         ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.TYPE_MISMATCH, message);
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        log.error("handle DataIntegrityViolationException - {}", ex.getMessage());
+
+        ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.DATA_INTEGRITY_VIOLATION, ex.getMessage());
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ApiResponse> handleIllegalStateException(IllegalStateException ex) {
+        log.error("handle IllegalStateException - {}", ex.getMessage());
+
+        ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.ILLEGAL_STATE, ex.getMessage());
         return ResponseEntity.badRequest().body(response);
     }
 

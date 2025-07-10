@@ -13,6 +13,8 @@ public enum ApiResponseCode {
     REQUEST_METHOD_NOT_SUPPORTED("REQUEST_METHOD_NOT_SUPPORTED", "잘못된 요청 메소드 입니다."),
     ENTITY_NOT_FOUND("ENTITY_NOT_FOUND", "요청하신 데이터가 없습니다."),
     TYPE_MISMATCH("TYPE_MISMATCH", "잘못된 요청 파라미터 타입입니다."),
+    DATA_INTEGRITY_VIOLATION("DATA_INTEGRITY_VIOLATION", "데이터 무결성 오류 입니다."),
+    ILLEGAL_STATE("ILLEGAL_STATE", "요청을 수행할 수 없는 상태입니다."),
     NOT_FOUND("NOT_FOUND", "잘못된 API 경로 요청입니다");
 
     private final String code;
