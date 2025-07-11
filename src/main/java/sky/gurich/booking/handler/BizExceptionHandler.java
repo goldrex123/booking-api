@@ -7,6 +7,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -112,6 +114,14 @@ public class BizExceptionHandler {
         log.error("handle IllegalStateException - {}", ex.getMessage());
 
         ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.ILLEGAL_STATE, ex.getMessage());
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ApiResponse> handleBadCredentialsException(BadCredentialsException ex) {
+        log.error("handle BadCredentialsException - {}", ex.getMessage());
+
+        ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.LOGIN_FAIL, ex.getMessage());
         return ResponseEntity.badRequest().body(response);
     }
 

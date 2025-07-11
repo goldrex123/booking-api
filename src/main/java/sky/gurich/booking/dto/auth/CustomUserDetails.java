@@ -1,5 +1,6 @@
 package sky.gurich.booking.dto.auth;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,5 +55,9 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return customMemberDto.getUsername();
+    }
+
+    public CustomMemberDto getCustomMemberDto() {
+        return customMemberDto;
     }
 }

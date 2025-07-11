@@ -11,7 +11,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import sky.gurich.booking.jwt.JwtLoginFilter;
+import sky.gurich.booking.jwt.JWTUtil;
+import sky.gurich.booking.jwt.JwtAuthorizationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +20,7 @@ import sky.gurich.booking.jwt.JwtLoginFilter;
 public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JWTUtil jwtUtil;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -31,10 +33,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtLoginFilter jwtLoginFilter() throws Exception {
-        JwtLoginFilter filter = new JwtLoginFilter();
-        filter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
-        return filter;
+    public JwtAuthorizationFilter jwtAuthorizationFilter() {
+        return new JwtAuthorizationFilter(jwtUtil);
     }
 
     @Bean
@@ -48,7 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated())
 
-                .addFilterBefore(jwtLoginFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));

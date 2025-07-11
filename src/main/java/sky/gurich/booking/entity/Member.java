@@ -17,7 +17,9 @@ public class Member extends BaseTimeEntity{
     private String username;
     private String password;
     private String nickname;
+    @Enumerated(EnumType.STRING)
     private ChurchGroup churchGroup;
+    @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
     @Builder

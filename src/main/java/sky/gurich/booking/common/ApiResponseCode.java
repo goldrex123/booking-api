@@ -6,7 +6,13 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum ApiResponseCode {
+    //-- 정상 요첨 --//
     SUCCESS("SUCCESS", "요청 성공"),
+
+    //-- 요청 실패 --//
+    LOGIN_FAIL("LOGIN_FAIL", "로그인이 실패했습니다."),
+    AUTHENTICATION_FAIL("AUTHENTICATION_FAIL", "인증 실패에 실패했습니다."),
+    ACCESS_FAIL("ACCESS_FAIL", "권한이 없는 요청입니다."),
     VALIDATION_FAIL("VALIDATION_FAIL", "잘못된 요청입니다"),
     SERVER_SIDE_EXCEPTION("SERVER_SIDE_EXCEPTION", "서버 측 오류 입니다"),
     REQUEST_BODY_NOT_READABLE("REQUEST_BODY_NOT_READABLE", "잘못된 Request Body 데이터 입니다"),
