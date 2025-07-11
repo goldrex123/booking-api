@@ -5,12 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sky.gurich.booking.common.ApiResponse;
-import sky.gurich.booking.dto.RoomCreateRequest;
-import sky.gurich.booking.dto.RoomResponse;
-import sky.gurich.booking.dto.RoomUpdateRequest;
+import sky.gurich.booking.dto.room.RoomCreateRequest;
+import sky.gurich.booking.dto.room.RoomResponse;
+import sky.gurich.booking.dto.room.RoomUpdateRequest;
 import sky.gurich.booking.service.RoomService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/room")

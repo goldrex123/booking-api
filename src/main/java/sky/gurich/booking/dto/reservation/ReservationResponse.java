@@ -1,7 +1,9 @@
-package sky.gurich.booking.dto;
+package sky.gurich.booking.dto.reservation;
 
 import lombok.Builder;
 import lombok.Getter;
+import sky.gurich.booking.dto.car.CarResponse;
+import sky.gurich.booking.dto.room.RoomResponse;
 import sky.gurich.booking.entity.Reservation;
 
 import java.time.LocalDateTime;

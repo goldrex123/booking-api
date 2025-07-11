@@ -1,4 +1,4 @@
-package sky.gurich.booking.dto;
+package sky.gurich.booking.dto.car;
 
 
 import lombok.Builder;

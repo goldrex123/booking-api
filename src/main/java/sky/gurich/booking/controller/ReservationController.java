@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import sky.gurich.booking.dto.ReservationCreateRequest;
-import sky.gurich.booking.dto.ReservationSearchRequest;
+import sky.gurich.booking.dto.reservation.ReservationCreateRequest;
+import sky.gurich.booking.dto.reservation.ReservationSearchRequest;
 import sky.gurich.booking.service.ReservationService;
 
 @RestController

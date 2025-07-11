@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sky.gurich.booking.dto.CarCreateRequest;
-import sky.gurich.booking.dto.CarResponse;
-import sky.gurich.booking.dto.CarUpdateRequest;
+import sky.gurich.booking.dto.car.CarCreateRequest;
+import sky.gurich.booking.dto.car.CarResponse;
+import sky.gurich.booking.dto.car.CarUpdateRequest;
 import sky.gurich.booking.entity.Car;
 import sky.gurich.booking.repository.CarRepository;
 

@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sky.gurich.booking.dto.RoomCreateRequest;
-import sky.gurich.booking.dto.RoomResponse;
-import sky.gurich.booking.dto.RoomUpdateRequest;
+import sky.gurich.booking.dto.room.RoomCreateRequest;
+import sky.gurich.booking.dto.room.RoomResponse;
+import sky.gurich.booking.dto.room.RoomUpdateRequest;
 import sky.gurich.booking.entity.Room;
 import sky.gurich.booking.repository.RoomRepository;
 

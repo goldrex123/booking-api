@@ -1,4 +1,4 @@
-package sky.gurich.booking.dto;
+package sky.gurich.booking.dto.reservation;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

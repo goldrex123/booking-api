@@ -5,9 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sky.gurich.booking.common.ApiResponse;
-import sky.gurich.booking.dto.CarCreateRequest;
-import sky.gurich.booking.dto.CarResponse;
-import sky.gurich.booking.dto.CarUpdateRequest;
+import sky.gurich.booking.dto.car.CarCreateRequest;
+import sky.gurich.booking.dto.car.CarResponse;
+import sky.gurich.booking.dto.car.CarUpdateRequest;
 import sky.gurich.booking.service.CarService;
 
 @RestController
