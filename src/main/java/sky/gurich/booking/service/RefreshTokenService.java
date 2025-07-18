@@ -13,8 +13,8 @@ public class RefreshTokenService {
     private final StringRedisTemplate stringRedisTemplate;
 
     public void saveTokenOnRedis(String username, String refreshToken) {
-//        stringRedisTemplate.opsForValue().set("RT:"+username, refreshToken, Duration.ofDays(1));
-        stringRedisTemplate.opsForValue().set("RT:"+username, refreshToken, Duration.ofSeconds(20));
+        stringRedisTemplate.opsForValue().set("RT:"+username, refreshToken, Duration.ofDays(1));
+//        stringRedisTemplate.opsForValue().set("RT:"+username, refreshToken, Duration.ofSeconds(20));
     }
 
     public String getToken(String username) {

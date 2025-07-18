@@ -17,7 +17,6 @@ import sky.gurich.booking.jwt.JWTUtil;
 import sky.gurich.booking.repository.MemberRepository;
 
 import java.time.Duration;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -39,8 +38,8 @@ public class AuthService {
 
         ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
                 .httpOnly(true)
-                .secure(true)
-                .path("/api/auth/token")
+                .secure(false)
+                .path("/api/auth")
                 .maxAge(Duration.ofDays(1))
                 .sameSite("Strict")
                 .build();
@@ -89,5 +88,21 @@ public class AuthService {
         }
 
         return jwtUtil.generateAccessToken(userId, null);
+    }
+
+    public void logout(String refreshToken, HttpServletResponse response) {
+
+        jwtUtil.validateToken(refreshToken);
+        String userId = jwtUtil.getUserId(refreshToken);
+        refreshTokenService.deleteToken(userId);
+
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", "")
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(0)
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE,cookie.toString());
     }
 }
