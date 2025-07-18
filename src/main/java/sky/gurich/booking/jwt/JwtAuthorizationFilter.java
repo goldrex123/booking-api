@@ -68,7 +68,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         return null;
     }
 
-    private void handlerJwtException() {
-
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        return path.startsWith("/api/auth");
     }
 }
+
+//access token - eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJxd2UiLCJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3NTI4MDM2MzIsImV4cCI6MTc1Mjg5MDAzMn0.8mQy-wD-8ayBKGnd1K29DyrlWtldUiD_EEBZse1Zvst5kJHF9dj1ijz8NeXHYxLKOJjWIG6Hb3rxVi1dzADoHw
+//

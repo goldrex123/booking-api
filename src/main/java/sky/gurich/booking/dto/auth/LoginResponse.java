@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import sky.gurich.booking.entity.ChurchGroup;
-import sky.gurich.booking.entity.Member;
 
 @Getter
 @Setter

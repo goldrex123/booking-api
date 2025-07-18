@@ -1,6 +1,7 @@
 package sky.gurich.booking.handler;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import sky.gurich.booking.common.ApiResponse;
 import sky.gurich.booking.common.ApiResponseCode;
+import sky.gurich.booking.exception.ExpiredTokenException;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -115,6 +117,30 @@ public class BizExceptionHandler {
 
         ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.ILLEGAL_STATE, ex.getMessage());
         return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        log.error("handle IllegalArgumentException - {}", ex.getMessage());
+
+        ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.ILLEGAL_ARGUMENT, ex.getMessage());
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<ApiResponse> handleJwtException(JwtException ex) {
+        log.error("handle JwtException - {}", ex.getMessage());
+
+        ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.AUTHENTICATION_FAIL, ex.getMessage());
+        return ResponseEntity.status(401).body(response);
+    }
+
+    @ExceptionHandler(ExpiredTokenException.class)
+    public ResponseEntity<ApiResponse> handleExpiredTokenException(ExpiredTokenException ex) {
+        log.error("handle ExpiredTokenException - {}", ex.getMessage());
+
+        ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.EXPIRED_REFRESH_TOKEN, ex.getMessage());
+        return ResponseEntity.status(401).body(response);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
