@@ -40,7 +40,6 @@ public class AuthController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(@RequestBody @Validated SignUpRequest request) {
-        System.out.println("AuthController.signUp");
         authService.signUp(request);
         return ResponseEntity.ok(ApiResponse.success("회원가입 완료"));
     }

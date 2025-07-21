@@ -1,5 +1,7 @@
 package sky.gurich.booking.dto.reservation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import sky.gurich.booking.entity.*;
@@ -19,8 +21,13 @@ public class ReservationCreateRequest {
     private ReservationType reservationType;
 
     @NotNull(message = "예약 시작 시간은 필수 값입니다.")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @FutureOrPresent(message = "예약 시작 시간은 과거일 수 없습니다.")
     private LocalDateTime reservationStartAt;
+
     @NotNull(message = "예약 종료 시간은 필수 값입니다.")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @FutureOrPresent(message = "예약 종료 시간은 과거일 수 없습니다.")
     private LocalDateTime reservationEndAt;
 
     public Reservation toEntity(Member member, Car car, Room room) {
