@@ -3,13 +3,14 @@ package sky.gurich.booking.handler;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -23,12 +24,16 @@ import sky.gurich.booking.exception.ExpiredTokenException;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @Slf4j
+@RequiredArgsConstructor
 public class BizExceptionHandler {
+
+    private final MessageSource messageSource;
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
@@ -37,7 +42,11 @@ public class BizExceptionHandler {
         BindingResult bindingResult = ex.getBindingResult();
         Map<String, String> errors = new HashMap<>();
         for (FieldError error : bindingResult.getFieldErrors()) {
-            errors.put(error.getField(), error.getDefaultMessage());
+            if (error.getCodes()[0].startsWith("typeMismatch")) {
+                errors.put(error.getField(), messageSource.getMessage(error.getCodes()[0], null, Locale.KOREA));
+            } else {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
         }
 
         ApiResponse<Map<String, String>> response = ApiResponse.fail(ApiResponseCode.VALIDATION_FAIL, errors);
@@ -152,7 +161,7 @@ public class BizExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse> handleMethodArgumentNotValidException(Exception ex) {
+    public ResponseEntity<ApiResponse> handleException(Exception ex) {
         log.error("handle Exception - {}", ex.getMessage(), ex);
 
         ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.SERVER_SIDE_EXCEPTION, ex.getMessage());
