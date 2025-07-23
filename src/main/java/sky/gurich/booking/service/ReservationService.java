@@ -72,4 +72,12 @@ public class ReservationService {
                 .map(ReservationResponse::toDto)
                 .toList();
     }
+
+    @Transactional
+    public void cancelReserve(Long id) {
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("예약 정보가 없습니다."));
+
+        reservationRepository.delete(reservation);
+    }
 }

@@ -1,7 +1,6 @@
 package sky.gurich.booking.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +30,11 @@ public class ReservationController {
     public ResponseEntity<?> reserve(@RequestBody @Validated ReservationCreateRequest request) {
         ReservationResponse response = reservationService.reserve(request);
         return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> cancelReserve(@PathVariable Long id) {
+        reservationService.cancelReserve(id);
+        return ResponseEntity.ok(ApiResponse.success("예약이 성공적으로 삭제되었습니다."));
     }
 }
