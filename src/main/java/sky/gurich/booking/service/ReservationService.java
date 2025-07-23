@@ -7,12 +7,15 @@ import org.springframework.transaction.annotation.Transactional;
 import sky.gurich.booking.dto.car.CarResponse;
 import sky.gurich.booking.dto.reservation.ReservationCreateRequest;
 import sky.gurich.booking.dto.reservation.ReservationResponse;
+import sky.gurich.booking.dto.reservation.ReservationSearchRequest;
 import sky.gurich.booking.dto.room.RoomResponse;
 import sky.gurich.booking.entity.*;
 import sky.gurich.booking.repository.CarRepository;
 import sky.gurich.booking.repository.MemberRepository;
 import sky.gurich.booking.repository.ReservationRepository;
 import sky.gurich.booking.repository.RoomRepository;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -54,5 +57,19 @@ public class ReservationService {
     private Member getMemberOrThrow(Long userId) {
         return memberRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 사용자 정보가 없습니다."));
+    }
+
+    public List<ReservationResponse> findReserve(ReservationSearchRequest request) {
+        List<Reservation> result;
+
+        if(request.getReservationType() == ReservationType.CAR) {
+            result = reservationRepository.findCarReservation(request.getId(), request.getSearchStartAt(), request.getSearchEndAt());
+        } else {
+            result = reservationRepository.findRoomReservation(request.getId(), request.getSearchStartAt(), request.getSearchEndAt());
+        }
+
+        return result.stream()
+                .map(ReservationResponse::toDto)
+                .toList();
     }
 }

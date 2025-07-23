@@ -28,7 +28,6 @@ public class ReservationResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime reservationEndAt;
 
-
     @Builder
     public ReservationResponse(Long id, Long userId, String username, CarResponse carResponse, RoomResponse roomResponse, ReservationType reservationType, LocalDateTime reservationStartAt, LocalDateTime reservationEndAt) {
         this.id = id;
