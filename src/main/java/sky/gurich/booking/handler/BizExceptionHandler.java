@@ -157,7 +157,7 @@ public class BizExceptionHandler {
         log.error("handle BadCredentialsException - {}", ex.getMessage());
 
         ApiResponse<String> response = ApiResponse.fail(ApiResponseCode.LOGIN_FAIL, ex.getMessage());
-        return ResponseEntity.badRequest().body(response);
+        return ResponseEntity.status(401).body(response);
     }
 
     @ExceptionHandler(Exception.class)
