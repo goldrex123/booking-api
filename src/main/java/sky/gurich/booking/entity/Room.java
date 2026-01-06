@@ -1,9 +1,6 @@
 package sky.gurich.booking.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,16 +20,22 @@ public class Room extends BaseTimeEntity{
 
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RoomStatus status = RoomStatus.AVAILABLE;
+
     @Builder
-    public Room(String roomName, RoomLocation roomLocation, String description) {
+    public Room(String roomName, RoomLocation roomLocation, String description, RoomStatus status) {
         this.roomName = roomName;
         this.roomLocation = roomLocation;
         this.description = description;
+        this.status = status != null ? status : RoomStatus.AVAILABLE;
     }
 
-    public void update(String roomName, RoomLocation roomLocation, String description) {
+    public void update(String roomName, RoomLocation roomLocation, String description, RoomStatus status) {
         this.roomName = roomName;
         this.roomLocation = roomLocation;
         this.description = description;
+        this.status = status;
     }
 }

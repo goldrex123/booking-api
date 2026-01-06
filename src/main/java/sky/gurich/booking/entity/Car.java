@@ -14,7 +14,7 @@ public class Car extends BaseTimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String carNumber;
+    private String licensePlate;
 
     private Integer capacity;
 
@@ -23,18 +23,24 @@ public class Car extends BaseTimeEntity{
 
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CarStatus status = CarStatus.AVAILABLE;
+
     @Builder
-    public Car(String carNumber, Integer capacity, CarType carType, String description) {
-        this.carNumber = carNumber;
+    public Car(String licensePlate, Integer capacity, CarType carType, String description, CarStatus status) {
+        this.licensePlate = licensePlate;
         this.capacity = capacity;
         this.carType = carType;
         this.description = description;
+        this.status = status != null ? status : CarStatus.AVAILABLE;
     }
 
-    public void update(String carNumber, Integer capacity, CarType carType, String description) {
+    public void update(String licensePlate, Integer capacity, CarType carType, String description, CarStatus status) {
+        this.licensePlate = licensePlate;
         this.capacity = capacity;
-        this.carNumber = carNumber;
         this.carType = carType;
         this.description = description;
+        this.status = status;
     }
 }

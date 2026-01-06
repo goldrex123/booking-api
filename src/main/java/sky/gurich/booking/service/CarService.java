@@ -21,9 +21,9 @@ public class CarService {
     private final CarRepository carRepository;
 
     public List<CarResponse> findCar() {
-        List<Car> carNumber = carRepository.findAll(Sort.by(Sort.Direction.ASC, "carNumber"));
+        List<Car> cars = carRepository.findAll(Sort.by(Sort.Direction.ASC, "licensePlate"));
 
-        return carNumber.stream()
+        return cars.stream()
                 .map(CarResponse::toDto)
                 .toList();
     }
@@ -45,10 +45,11 @@ public class CarService {
     public CarResponse updateCar(CarUpdateRequest carUpdateRequest) {
         Car car = getCarOrThrow(carUpdateRequest.getId());
         car.update(
-                carUpdateRequest.getCarNumber(),
+                carUpdateRequest.getLicensePlate(),
                 carUpdateRequest.getCapacity(),
                 carUpdateRequest.getCarType(),
-                carUpdateRequest.getDescription()
+                carUpdateRequest.getDescription(),
+                carUpdateRequest.getStatus()
         );
 
         return CarResponse.toDto(car);

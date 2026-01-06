@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import sky.gurich.booking.entity.RoomLocation;
+import sky.gurich.booking.entity.RoomStatus;
 
 @Getter
 @Setter
@@ -18,5 +19,8 @@ public class RoomUpdateRequest {
     private RoomLocation roomLocation;
     @Size(max = 255, message = "설명은 최대 255자까지 입력할 수 있습니다.")
     private String description;
+
+    @NotNull(message = "부속실 상태는 필수 값입니다.")
+    private RoomStatus status;
 
 }

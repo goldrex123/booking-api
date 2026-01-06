@@ -46,7 +46,8 @@ public class RoomService {
         room.update(
                 roomUpdateRequest.getRoomName(),
                 roomUpdateRequest.getRoomLocation(),
-                roomUpdateRequest.getDescription()
+                roomUpdateRequest.getDescription(),
+                roomUpdateRequest.getStatus()
         );
         return RoomResponse.toDto(room);
     }

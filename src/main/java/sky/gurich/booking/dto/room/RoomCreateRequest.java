@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import sky.gurich.booking.entity.Room;
 import sky.gurich.booking.entity.RoomLocation;
+import sky.gurich.booking.entity.RoomStatus;
 
 @Getter
 @Setter
@@ -18,11 +19,14 @@ public class RoomCreateRequest {
     @Size(max = 255, message = "설명은 최대 255자까지 입력할 수 있습니다.")
     private String description;
 
+    private RoomStatus status = RoomStatus.AVAILABLE; // 기본값
+
     public Room toEntity() {
         return Room.builder()
                 .roomName(this.roomName)
                 .roomLocation(this.roomLocation)
                 .description(this.description)
+                .status(this.status)
                 .build();
     }
 
