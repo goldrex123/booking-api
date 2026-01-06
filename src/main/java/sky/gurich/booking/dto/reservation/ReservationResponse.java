@@ -23,13 +23,25 @@ public class ReservationResponse {
 
     private ReservationType reservationType;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime reservationStartAt;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime reservationEndAt;
 
+    private String destination;
+    private String purpose;
+    private Integer attendees;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastModifiedAt;
+
     @Builder
-    public ReservationResponse(Long id, Long userId, String username, CarResponse carResponse, RoomResponse roomResponse, ReservationType reservationType, LocalDateTime reservationStartAt, LocalDateTime reservationEndAt) {
+    public ReservationResponse(Long id, Long userId, String username, CarResponse carResponse, RoomResponse roomResponse,
+                              ReservationType reservationType, LocalDateTime reservationStartAt, LocalDateTime reservationEndAt,
+                              String destination, String purpose, Integer attendees,
+                              LocalDateTime createdAt, LocalDateTime lastModifiedAt) {
         this.id = id;
         this.userId = userId;
         this.username = username;
@@ -38,6 +50,11 @@ public class ReservationResponse {
         this.reservationType = reservationType;
         this.reservationStartAt = reservationStartAt;
         this.reservationEndAt = reservationEndAt;
+        this.destination = destination;
+        this.purpose = purpose;
+        this.attendees = attendees;
+        this.createdAt = createdAt;
+        this.lastModifiedAt = lastModifiedAt;
     }
 
     public static ReservationResponse toDto(Reservation reservation) {
@@ -50,6 +67,11 @@ public class ReservationResponse {
                 .reservationType(reservation.getReservationType())
                 .reservationStartAt(reservation.getReservationStartAt())
                 .reservationEndAt(reservation.getReservationEndAt())
+                .destination(reservation.getDestination())
+                .purpose(reservation.getPurpose())
+                .attendees(reservation.getAttendees())
+                .createdAt(reservation.getCreatedAt())
+                .lastModifiedAt(reservation.getLastModifiedAt())
                 .build();
     }
 }
